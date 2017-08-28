@@ -1,0 +1,52 @@
+
+
+
+找一下官方对原理的解释
+
+不能一次请求中分页 , 再聚合
+底层不支持这样玩
+
+B哥_存回林 17-7-29 下午 11:23:11
+https://github.com/elastic/elasticsearch/issues/4915#issuecomment-61253054 
+
+问题:
+Paging support for aggregations
+Terms aggregation does not support a way to page through the buckets returned.
+To work around this, I've been trying to set 'min_doc_count' to limit the buckets returned and using a 'exclude' filter, to exclude already 'seen' pages.
+
+Will this result in better running time performance on the ES cluster as compared to getting all the buckets and then doing my own paging logic client side ?
+
+
+
+产品经理回复
+
+
+Paging is tricky to implement because document counts for terms aggregations are not exact when shard_size is less than the field cardinality and sorting on count desc. So weird things may happen like the first term of the 2nd page having a higher count than the last element of the first page, etc.
+
+Regarding your question, terms aggregations run in two phases on the shard-level: first they compute counts for every possible term, and then they pick the top shard_size ones. Increasing size (or shard_size) only makes the 2nd step more costly. Given that the runtime of the first step is linear with the number of matched documents and that the runtime of the 2nd step is O(#unique_values * log(shard_size)), if you only have a limited number of unique values compared to the number of matched documents, doing the paging on client-side would be more efficient. On the other hand, on high-cardinality-fields, your first approach based on an exclude would probably be better.
+
+As a side-note, min_doc_count has no effect on runtime performance when it is greater than or equal to 1. Only min_doc_count=0 is more costly given that it requires Elasticsearch to also fetch terms that are not contained in any match.
+
+
+折中的办法
+
+I would love to see this feature being added to ES, but I understand the cost at which it would come.
+I'm currently working for a client which needed such a feature, but since it didn't exist yet we solved it with doing 2 queries:
+
+The first query has a terms aggregation on our field on which we want grouping and orders the aggregation based on the doc.score. We set the size of the aggregation to 0, so that we get all buckets for that query.
+We then parse the result and get the keys from the buckets corresponding to the given size and offset. ( eg bucket 30-40 for page 3).
+
+We then perform a new query, filtering all results based on the keys from the first query. Next to the query is a term aggregation (on the same field as before), and we add a top_hits aggregation to get the results for those (10) buckets.
+
+This way we don't have to load all 40 buckets and get the top_hits for those buckets, which increases performance.
+
+Loading all buckets and top 10 hits per bucket took around 20 seconds for a certain query. With the above change we managed to bring it back to 100ms.
+
+Info:
+
++-60 million records
+around 1500 buckets for average query
+around 300 documents per bucket
+This might help someone out as a workaround till such a feature exists within Elasticsearch
+
+

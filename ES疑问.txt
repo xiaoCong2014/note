@@ -1,0 +1,18 @@
+
+
+
+
+//boolQueryBuilder.filter(
+//Adds a query that must appear in the matching documents.     but will not contribute to scoring. No null value allowed.不考虑分值scoring，所以常用它
+
+//boolQueryBuilder.must(
+// Gets the queries that must appear in the matching documents. 似乎会考虑分值scoring，所以用 filter
+
+
+
+已经有的
+boolQueryBuilder.filter(matchQuery("platformVersionId", courseStudyStatisticQueryParam.getPlatformVersionId()));
+//todo 应该可以换成下面的
+//        if (StringUtils.isNotBlank(courseStudyStatisticQueryParam.getPlatformVersionId())) {//QueryBuilders.ma
+//            boolQueryBuilder.filter(termQuery("platformVersionId", courseStudyStatisticQueryParam.getPlatformVersionId()));
+//        }

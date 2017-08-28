@@ -1,0 +1,6 @@
+CourseAssessContent(context:RequestContext(organizationId:-1, platformId:40289b7e5bf507f8015bf50a77920000, platformVersionId:40289b7e5bf507f8015bf50a7aaa0001, projectId:2c9180e55bf1d81f015c1f6ed88b1761, subProjectId:2c9180e55bf1d81f015c1f6ed8931763, unitId:-1), objectId:c8a70441589e40419c08f855cf602f41, objectType:0, courseId:6f9ac04b6a7541a1a2398f1c95109a36, userId:2c9180e55bf1d81f015c1f8a225c1937, schedule:100.0)
+
+
+
+StudentCourseLearningStatistic(id=a3850093b9f64e6ab59bd38023698c79, platformId=40289b7e5bf507f8015bf50a77920000, platformVersionId=40289b7e5bf507f8015bf50a7aaa0001, projectId=2c9180e55bf1d81f015c1f6ed88b1761, subProjectId=2c9180e55bf1d81f015c1f6ed8931763, unitId=-1, organizationId=-1, studentId=2c9180e55bf1d81f015c1f8a225c1937, courseId=6f9ac04b6a7541a1a2398f1c95109a36, courseName=课程6, learningType=2, learningTypeValue=0, timeLength=3, finishTime=1495444442287, createTime=1495444442287)
+

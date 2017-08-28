@@ -1,0 +1,39 @@
+
+        //最终要的page里的数据
+        ArrayList<BriefStudyRecordStatisticDto2> briefStudyRecordStatisticDto2List = new ArrayList<>();
+
+        for ( StudentCourseStudyStatistic studentCourseStudyStatistic : studentCourseStudyStatisticList ) {
+            BriefStudyRecordStatisticDto2 briefStudyRecordStatisticDto2 = new BriefStudyRecordStatisticDto2();
+
+            briefStudyRecordStatisticDto2.setStudentId( studentCourseStudyStatistic.getStudentId() );
+            //briefStudyRecordStatisticDto2下的 briefStudyRecordStatisticDto
+            BriefStudyRecordStatisticDto briefStudyRecordStatisticDto = new BriefStudyRecordStatisticDto();
+
+            briefStudyRecordStatisticDto.setStudyType( studentCourseStudyStatistic.getStudyTypeKey() );
+
+
+            briefStudyRecordStatisticDto.setFinishTime( studentCourseStudyStatistic.getCreateTime() );
+            briefStudyRecordStatisticDto.setTimeLength( studentCourseStudyStatistic.getTimeLength() );
+
+            String courseName = studentCourseStudyStatistic.getCourseName();
+
+            briefStudyRecordStatisticDto.setStudyContent( courseName );
+
+            //结构
+            briefStudyRecordStatisticDto2.setBriefStudyRecordStatisticDto( briefStudyRecordStatisticDto );
+
+            briefStudyRecordStatisticDto2List.add( briefStudyRecordStatisticDto2 );
+
+
+        }
+		
+		
+商户URL
+http://xiaocong.hxlearning.com:9010/
+
+		
+商户管理员登录
+18149547800
+000000
+
+		

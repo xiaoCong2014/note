@@ -1,0 +1,6 @@
+培训班[c8a70441589e40419c08f855cf602f41] 第[1]页、取[2]量的数据是: {"orderBySize":0,"pageNo":1,"pageSize":2,"setOrderBy":false,"setPageNo":true,"setPageSize":true,"setTotalSize":true,"totalSize":2}
+[INFO ] http-nio-8080-exec-10 2017-05-22 17:20:25,848 com.fjhb.elearning.gateway.web.front.MyTrainingAction     - StudyStatistics.trainingId: == >>c8a70441589e40419c08f855cf602f41
+
+
+最新 2017.5.23
+//一个课程的时长：该课程下所有课程目录下的课件的总和（一个课程目录下只会有一个课件）

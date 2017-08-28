@@ -1,0 +1,261 @@
+
+###4.课程播放的初始化（能力层实现）
+`播放初始化(取消playType请求参数,增加token/courseRecordId/coursewareRecordId返回参数)`
+
+**URL**
+`
+/mobile/user/lessonPlay/initLessonPlay
+`
+
+**支持格式**
+`json`
+
+**HTTP请求方式**
+`GET`
+
+**请求参数**
+```
+{
+    "head":{
+        "appVersion":"v1.0 beta",
+        "osPlatform":"IOS 6.0",
+        "requestTime":"2014-01-26 17:37:36"
+    },
+    "data":{
+        "courseId":"",
+        "courseWareId":"",
+        "multiMediaId":"",
+        "objectType":"-1",
+        "objectValue":"-1",
+        "type":"",
+        "test":"true",
+        "plmId":"",
+        "pvmId":"",
+        "prmId":"",
+        "subPrmId":"",
+        "unitId":"",
+        "orgId":""
+    }
+}
+```
+| 参数名称 | 必选 | 数据类型|描述|
+|--------|--------|------|---|
+|courseId||string|课程Id||
+|coursewareId|true|string|课件Id||
+|multiMediaId|true|string|课件下的媒体Id||
+|objectType|true|string|播放业务类型:-1: 默认; 1: 培训班;|
+|objectValue|true|string|课件Id:objectType为-1时, 值为-1即可； objectType为1时, 值为培训班ID|
+|type|true|string|播放类型（小写）<li>single-单视频 <li>three-三分屏 <li>scorm-SCORM标准课件包 <li>pdf-PDF文档|
+|test|true|boolean|是否测试, true-是 false-否|
+|plmId|true|string|平台ID|
+|pvmId|true|string|平台版本ID|
+|prmId|true|string|项目ID|
+|subPrmId|true|string|子项目ID|
+|unitId|true|string|服务单位ID|
+|orgId|true|string|组织机构ID|
+|||||
+
+
+**返回结果**
+```
+{
+    "head":{
+        "code":200,
+        "message":""
+    },
+    "data":{
+        "pattern":"custom",
+        "core":{
+        	"token","dc1cd445d5294579847651085c69a793",
+            "primaryKey":"",
+            "studentId":"",
+            "studentName":"",
+            "lessonId":"",
+            "lessonLocation":"",
+            "chapterId":"",
+            "courseRecordId":"",
+            "coursewareRecordId":"",
+            "studyCurrentScale":0,
+            "studyLastScale":0,
+            "studySchedule":0,
+            "lessonStatus":0,
+            "studyMode":1,
+            "timingMode":"schedule",
+            "studyStatus":0
+        },
+        "objectives":{
+            "mode":"active",
+            "modifyPolicy":false,
+            "policy":{
+                "intervalTime":30
+            }
+        }
+    }
+}
+```
+| 元素名称 | 数据类型 | 元素意义|其他说明|
+|--------|--------|------|------|
+|  head|  对象 |信息头| |
+|code|int|服务端处理结果||
+|message|string|服务端返回的信息||
+|data|object|数据主体||
+|pattern|string|模式||
+|token|string|当前授权学习的唯一标识，提交进度时需要携带||
+|primaryKey|string|媒体学习记录ID||
+|studentId|string|学员Id||
+|studentName|string|学员名字||
+|lessonId|string|课程id||
+|lessonLocation|string|课程章节序号||
+|chapterId|string|章节id||
+|courseRecordId|String|课程学习记录编号||
+|coursewareRecordId|String|课件学习记录编号||
+|studyCurrentScale|int|当前学习刻度||
+|studyLastScale|int|最后一次学习刻度||
+|studySchedule|int|学习进度||
+|studyMode|int|学习模式 0/1 浏览/正常||
+|timingMode|string|计时模式||
+|studyStatus|int|学习状态 0/1/2, 未学习/学习中/学习完成||
+|lessonStatus|string|播放状态||
+|objectives|object|数据交互描述||
+|mode|string|交互模式||
+|modifyPolicy|bool|变更策略||
+|policy|object|策略||
+|intervalTime|int|循环提交间隔,单位:秒||
+
+**请求实例**
+
+```
+http://qutopia.hxlearning.com:8080/mobile/user/lessonPlay/initLessonPlay?requestString={"head":{"appVersion":"v1.0 beta","osPlatform":"IOS 6.0","requestTime":"2014-01-26 17:37:36"},"data":{"courseId":"f504e549c4b648139e2fb8f86fcfa5f2","coursewareId":"0020237366cf43dcb851cb17c4550ad3","mediumId":"06c8d9e142ac4bddb356e9a2bdb32fe5","objectType":"-1","objectValue":"-1"}}
+```
+
+###5.提交课程的播放进度（能力层实现）
+`根据课程Id和课件id获取播放信息
+（增加studyLastScale、courseRecordId、coursewareRecordId、token、lessonStatus请求参数）
+`
+
+**URL**
+`
+/mobile/user/lessonPlay/commitLessonProgress
+`
+
+**支持格式**
+`json`
+
+**HTTP请求方式**
+`GET`
+
+**请求参数**
+```
+{
+    "head":{
+        "appVersion":"v1.0 beta",
+        "osPlatform":"IOS 6.0",
+        "requestTime":"2014-01-26 17:37:36"
+    },
+    "data":{
+        "core":{
+            "token":"abcde",
+            "courseId ":"",
+            "coursewareId ":"",
+            "courseRecordId":"abcde",
+            "coursewareRecordId":"abcde",
+            "primaryKey":"",
+            "studyCurrentScale":0,
+            "studySchedule":0,
+            "studyLastScale":0,
+            "lessonStatus":"brosed",
+            "timingMode":"",
+            "objectType":"-1",
+            "objectValue":"-1"
+        },
+        "extend":{
+            "test":true,
+            "plmId":"",
+            "pvmId":"",
+            "prmId":"",
+            "subPrmId":"",
+            "unitId":"",
+            "orgId":"",
+            "usrId":"",
+            "originalAbilityId":""
+        }
+    }
+}
+```
+| 参数名称 | 必选 | 数据类型|描述|
+|--------|--------|------|---|
+|data|true|object|数据|
+|core|true|object|核心功能|
+|||||
+|token|true|String|播放唯一标识，从初始化返回值获取|
+|courseId|true|string|课程ID|
+|courseRecordId|true|String|课程学习记录Id，从初始化返回值获取|
+|coursewareId|true|string|课件ID|
+|coursewareRecordId|true|String|课件学习记录Id，从初始化返回值获取|
+|primaryKey|true|string|媒体学习记录Id，从初始化返回值获取|
+|studyCurrentScale|true|int|当前播放刻度|
+|studySchedule|true|double|当前进度|
+|studyLastScale|true|int|最后一次播放刻度|
+|lessonStatus|true|String|当前播放状态，从初始化返回值获取|
+|timingMode|true|String|计时模式，从初始化返回值获取|
+|objectType|true|string|播放业务类型:-1: 默认; 1: 培训班;|
+|objectValue|true|string|课件Id:objectType为-1时, 值为-1即可； objectType为1时, 值为培训班ID|
+|||||
+|extend|true|object||
+|test|true|boolean|是否测试, true-是 false-否|
+|plmId|true|string|平台ID|
+|pvmId|true|string|平台版本ID|
+|prmId|true|string|项目ID|
+|subPrmId|true|string|子项目ID|
+|unitId|true|string|服务单位ID|
+|orgId|true|string|组织机构ID|
+|||||
+
+**返回结果**
+```
+{
+    "head":{
+        "code":200,
+        "message":""
+    },
+    "data":{
+        "core":{
+            "primaryKey":"",
+            "studyCurrentScale":0,
+            "studyLastScale":0,
+            "studySchedule":0,
+            "studyStatus":0
+        },
+        "objectives":{
+            "modifyPolicy":false,
+            "policy":{
+                "intervalTime":30
+            }
+        }
+    }
+}
+```
+| 元素名称 | 数据类型 | 元素意义|其他说明|
+|--------|--------|------|------|
+|  head|  对象 |信息头| |
+|code|int|服务端处理结果||
+|message|string|服务端返回的信息||
+|data|object|数据主体||
+|primaryKey|string|主键id||
+|studyCurrentScale|int|当前学习刻度||
+|studyLastScale|int|最后一次学习刻度||
+|studySchedule|int|学习进度||
+|studyStatus|int|学习状态 0/1/2, 未学习/学习中/学习完成||
+|objectives|object|数据交互描述||
+|modifyPolicy|bool|变更策略||
+|policy|object|策略||
+|intervalTime|int|循环提交间隔,单位:秒||
+|||||
+
+
+**请求实例**
+
+```
+http://fjhb.hxlearning.com:8080/mobile/user/lessonPlay/commitLessonProgress?requestString={"head":{"appVersion":"v1.0 beta","osPlatform":"IOS 6.0","requestTime":"2014-01-26 17:37:36"},"data":{"objectType":"-1","objectValue":"-1","token":"498b02f7723a4980a3195c0c3f4984be","lessonId ":"f3a53ed6e7b54f15bc46da70f86e9ef4","coursewareId ":"c53a77d4391949d6bc791b9a90257f51","courseRecordId":"6a7e0b8d19844fa49749d1c949a9b4a3","coursewareRecordId":"1d424c1a18f54945ab8ac2d635d5f1a7","primaryKey":"95cd1cba27d5431d959b2050e43defc1","studyCurrentScale":82,"studySchedule":82,"studyLastScale":0,"lessonStatus":"not attempted"}}
+
+```

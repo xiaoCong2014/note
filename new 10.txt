@@ -1,0 +1,90 @@
+
+http://192.168.1.81/svn/fjhbdev
+
+
+SVN
+
+西医
+http://192.168.1.81/svn/wmgct\
+
+
+Medical\
+
+
+
+http://xiaocong.hxlearning.com:9010/web/admin/lessonStudyStatistic/findBriefStudyRecordStatistic
+
+http://xiaocong.hxlearning.com:9010/web/admin/managerIndex/getLearningStar?_q_=1495619665623&dataType=day&pageSize=10
+
+
+测试2运营平台域名：http://oprjzpxtest2.59iedu.com:1457
+管理员：admin
+密码：a000000
+
+测试2商户域名：http://npzhjzpxtest2.59iedu.com:1457
+管理员:npzh@qq.com
+密码：admin000000
+
+
+
+需求文档:http://192.168.1.81/svn/fjhbdev/资料库/07需求开发/矫正人员培训平台/原型图
+
+
+学习时长两个
+存了两条
+
+
+"unitId": "-1",
+"organizationId": "-1",
+
+ ES 数据库的问题
+上下文  单位id和名字  组织id和名字
+时长 15 默认s
+考勤编号  一下
+
+考勤编号
+
+ ES 存时间，然后查询
+ 两遍
+代码操作
+
+
+编码 手机号吗
+登录输入 loginInput
+
+类型是什么  手机吗
+
+
+那个    
+考勤编号 一定是  普通账号（登录输入loginInput）
+
+
+
+登录方式：会只剩下  普通账号
+创建用户的时候 的  邮箱 和 手机号 只是用户的信息，以后不用它们来登录
+
+MongoDB 的管道没有map常见，普遍
+
+
+d3fe515250d142e1ab012534ab93bf1b  课程7
+9a8cdb7aca5d4e66a423fd237e427f24  课程9
+
+数据够了，
+用json和聚合试试
+
+代码
+
+
+
+查询的功能有多少时间？
+
+
+删除所有的，重新弄
+
+
+将来会只能用
+
+
+'Access-Control-Allow-Origin
+
+

@@ -1,0 +1,29 @@
+
+[2017-06-05 11:55:27,800] Artifact fjhb-elearing-v3:war exploded: Artifact is deployed successfully
+[2017-06-05 11:55:27,800] Artifact fjhb-elearing-v3:war exploded: Deploy took 86,629 milliseconds
+[WARN ] http-nio-8080-exec-3 2017-06-05 23:55:37,937 com.fjhb.security.cas.session.SingleSignOutHandler     - Front Channel single sign out redirects are disabled when the 'casServerUrlPrefix' value is not set.
+[ERROR] http-nio-8080-exec-5 2017-06-05 23:55:39,186      com.fjhb.log.client.WebLogFilter     - java.lang.NullPointerException
+[INFO ] http-nio-8080-exec-8 2017-06-05 23:55:47,237 com.fjhb.elearning.gateway.web.admin.LessonStudyStatisticAction     - 分页获取多个学员的学习成绩报告，以用户为维度 ---查询参数: {"firstDayOfMonthLong":1496246400,"lastDayOfMonthLong":1498838399,"organizationId":"-1","studentIdList":["2c9180e55c348c46015c3f0f0bad0a0d"],"unitId":"2c9180e55bf1d81f015c1f6ed8ca1768"}
+#
+# A fatal error has been detected by the Java Runtime Environment:
+#
+#  EXCEPTION_ACCESS_VIOLATION (0xc0000005) at pc=0x0000000076192f18, pid=37896, tid=50396
+#
+# JRE version: Java(TM) SE Runtime Environment (8.0_45-b15) (build 1.8.0_45-b15)
+# Java VM: Java HotSpot(TM) 64-Bit Server VM (25.45-b02 mixed mode windows-amd64 compressed oops)
+# Problematic frame:
+# V  [jvm.dll+0x492f18]
+#
+# Failed to write core dump. Minidumps are not enabled by default on client versions of Windows
+#
+# An error report file with more information is saved as:
+# D:\Program Files\apache-tomcat-9.0.0.M21\bin\hs_err_pid37896.log
+#
+# Compiler replay data is saved as:
+# D:\Program Files\apache-tomcat-9.0.0.M21\bin\replay_pid37896.log
+#
+# If you would like to submit a bug report, please visit:
+#   http://bugreport.java.com/bugreport/crash.jsp
+#
+Disconnected from the target VM, address: '127.0.0.1:60791', transport: 'socket'
+Disconnected from server

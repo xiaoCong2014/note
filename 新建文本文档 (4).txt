@@ -1,0 +1,192 @@
+/**
+ * Created by WDL on 2015/8/27.
+ */
+define(function () {
+    'use strict';
+    return ['$scope', 'HB_notification', 'learningStatisitcService', function ($scope, HB_notification, learningStatisitcService) {
+
+
+        $scope.model={
+            studyModel:[],
+            studyStatus:{},
+            studyTimeObj:{}
+        };
+/*        learningStatisitcService.findLearningLengthOfMonth().then(function(data){
+            $scope.model.studyTimeObj=data.info;
+            //$scope.model.studyTimeObj.studyTimeLength=null;
+            //$scope.model.studyTimeObj.integratedEduStudyTimeLength=null;
+            //$scope.model.studyTimeObj.individualEduStudyTimeLength=null;
+            if($scope.model.studyTimeObj.studyTimeLength!==null){
+                $scope.model.studyTimeHour=cropperStr($scope.model.studyTimeObj.studyTimeLength,0,2);
+                $scope.model.studyTimeMin=cropperStr($scope.model.studyTimeObj.studyTimeLength,3,2);
+                $scope.model.studyTimeSed=cropperStr($scope.model.studyTimeObj.studyTimeLength,6,2);
+            }
+
+            if($scope.model.studyTimeObj.integratedEduStudyTimeLength!==null){
+                $scope.model.integratedHour=cropperStr($scope.model.studyTimeObj.integratedEduStudyTimeLength,0,2);
+                $scope.model.integratedMin=cropperStr($scope.model.studyTimeObj.integratedEduStudyTimeLength,3,2);
+                $scope.model.integratedSed=cropperStr($scope.model.studyTimeObj.integratedEduStudyTimeLength,6,2);
+            }
+
+            if($scope.model.studyTimeObj.individualEduStudyTimeLength!==null){
+                $scope.model.individualHour=cropperStr($scope.model.studyTimeObj.individualEduStudyTimeLength,0,2);
+                $scope.model.individualMin=cropperStr($scope.model.studyTimeObj.individualEduStudyTimeLength,3,2);
+                $scope.model.individualSed=cropperStr($scope.model.studyTimeObj.individualEduStudyTimeLength,6,2);
+            }
+        });*/
+
+        learningStatisitcService.findJobGradeLearningInfo().then(function(data){
+            $scope.model.studyStatus=data.info;
+        });
+
+        learningStatisitcService.findStudyDataOfHistoryMonth().then(function(data){
+            $scope.model.studyModel=data.info;
+            var individualSecond=0;
+            var collectiveSecond=0;
+            var offlineCollectiveSecond=0;
+            var collectiveAllSecond=0;
+            var allSecond=0;
+            var currentDate = new Date();
+            var currentYear=currentDate.getFullYear();
+            var currentMonth=currentDate.getMonth()+1    ;
+            angular.forEach( $scope.model.studyModel.studyAchievementReportMonthLatitude2List,function(item){
+                if(item.year==currentYear&&item.month==currentMonth){
+                    if(item.individualEducationDto3!=null){
+                        individualSecond+=item.individualEducationDto3.intTimeLengthSecond;
+                        if(individualSecond!=0){
+                            item.individualEducationDto3.intTimeLengthSecond=changeTime(individualSecond);
+                        }
+                    }
+                    if(item.collectiveEducationDto3!=null){
+                        collectiveSecond+=item.collectiveEducationDto3.intTimeLengthSecond;
+                        if(collectiveSecond!=0){
+                            item.collectiveEducationDto3.intTimeLengthSecond=changeTime(collectiveSecond);
+                        }
+                    }
+                    if(item.offlineCollectiveEducationDto3!=null) {
+                        offlineCollectiveSecond+=item.offlineCollectiveEducationDto3.intTimeLengthSecond;
+                        if(offlineCollectiveSecond!=0){
+                            item.offlineCollectiveEducationDto3.intTimeLengthSecond=changeTime(offlineCollectiveSecond);
+                        }
+                    }
+                    collectiveAllSecond=collectiveSecond+offlineCollectiveSecond;
+                    allSecond=collectiveSecond+offlineCollectiveSecond+individualSecond;
+                }
+                else{
+                    if(item.individualEducationDto3!=null){
+                        item.individualEducationDto3.intTimeLengthSecond+=item.individualEducationDto3.intTimeLengthSecond;
+                        if( item.individualEducationDto3.intTimeLengthSecond!=0){
+                            item.individualEducationDto3.intTimeLengthSecond=changeTime(item.individualEducationDto3.intTimeLengthSecond);
+                        }
+                    }
+                    if(item.collectiveEducationDto3!=null){
+                        item.collectiveEducationDto3.intTimeLengthSecond+=item.collectiveEducationDto3.intTimeLengthSecond;
+                        if(item.collectiveEducationDto3.intTimeLengthSecond!=0){
+                            item.collectiveEducationDto3.intTimeLengthSecond=changeTime(item.collectiveEducationDto3.intTimeLengthSecond);
+                        }
+                    }
+                    if(item.offlineCollectiveEducationDto3!=null) {
+                        item.offlineCollectiveEducationDto3.intTimeLengthSecond+=item.offlineCollectiveEducationDto3.intTimeLengthSecond;
+                        if( item.offlineCollectiveEducationDto3.intTimeLengthSecond!=0){
+                            item.offlineCollectiveEducationDto3.intTimeLengthSecond=changeTime(item.offlineCollectiveEducationDto3.intTimeLengthSecond);
+                        }
+                    }
+                }
+                if(item.individualEducationDto3===null&&item.collectiveEducationDto3===null&&item.offlineCollectiveEducationDto3==null){
+                    //alert('都为空');
+                    item.concatArr=[];
+                    item.concatArr=[{courseIdList: null,
+                        studentId: null,
+                        studyContent: "",
+                        studyTypeKey:null,
+                        studyTypeValue: null,
+                        timeLengthHour: null,
+                        trainingClassId: null}
+                    ];
+                }else if(item.collectiveEducationDto3===null&&item.individualEducationDto3!=null&&item.offlineCollectiveEducationDto3!=null){
+                    item.concatArr=[];
+                    item.concatArr=item.concatArr.concat([],item.individualEducationDto3,item.offlineCollectiveEducationDto3);
+                }else if(item.individualEducationDto3===null&&item.offlineCollectiveEducationDto3!=null&&item.collectiveEducationDto3!=null){
+                    item.concatArr=[];
+                    item.concatArr=item.concatArr.concat([],item.collectiveEducationDto3,item.offlineCollectiveEducationDto3);
+                }
+                else if(item.offlineCollectiveEducationDto3===null&&item.collectiveEducationDto3!=null&&item.individualEducationDto3!=null){
+                    item.concatArr=[];
+                    item.concatArr=item.concatArr.concat([],item.collectiveEducationDto3,item.individualEducationDto3);
+                }
+                else if(item.offlineCollectiveEducationDto3===null&&item.collectiveEducationDto3===null&&item.individualEducationDto3!=null){
+                    item.concatArr=[];
+                    item.concatArr=item.concatArr.concat([],item.individualEducationDto3);
+                }
+                else if(item.offlineCollectiveEducationDto3===null&&item.collectiveEducationDto3!=null&&item.individualEducationDto3===null){
+                    item.concatArr=[];
+                    item.concatArr=item.concatArr.concat([],item.collectiveEducationDto3);
+                }
+                else if(item.offlineCollectiveEducationDto3!=null&&item.collectiveEducationDto3===null&&item.individualEducationDto3===null){
+                    item.concatArr=[];
+                    item.concatArr=item.concatArr.concat([],item.offlineCollectiveEducationDto3);
+                }
+                else{
+                    //alert('不为空');
+                    item.concatArr=[];
+                    item.concatArr=item.concatArr.concat(item.collectiveEducationDto3,item.individualEducationDto3,item.offlineCollectiveEducationDto3);
+                }
+            });
+            $scope.individualTime=changeTime(individualSecond);
+            $scope.collectiveAllTime=changeTime(collectiveAllSecond);
+            $scope.allTime=changeTime(allSecond);
+            $scope.individualSecond=cropperStr($scope.individualTime,8,2);
+            $scope.individualMinutes =cropperStr($scope.individualTime,4,2);
+            $scope.individualHour =cropperStr($scope.individualTime,0,2);
+            $scope.collectiveAllSecond=cropperStr($scope.collectiveAllTime,8,2);
+            $scope.collectiveAllMinutes =cropperStr($scope.collectiveAllTime,4,2);
+            $scope.collectiveAllHour =cropperStr($scope.collectiveAllTime,0,2);
+            $scope.allTimeSecond=cropperStr($scope.allTime,8,2);
+            $scope.allTimeMinutes =cropperStr($scope.allTime,4,2);
+            $scope.allTimeHour =cropperStr($scope.allTime,0,2);
+        });
+
+        function cropperStr(str,start,end){
+            return str.substr(start,end);
+        }
+        function changeTime(seconds){
+            var theTime = parseInt(seconds);// 秒
+            var theTime1 = 0;// 分
+            var theTime2 = 0;// 小时
+            if(theTime > 60) {
+                theTime1 = parseInt(theTime/60);
+                theTime = parseInt(theTime%60);
+                if(theTime1 > 60) {
+                    theTime2 = parseInt(theTime1/60);
+                    theTime1 = parseInt(theTime1%60);
+                }
+            }
+            if(theTime<10){
+                theTime="0"+theTime;
+            }
+            var result = ""+theTime+"秒";
+            if(theTime1 > 0) {
+                if(theTime1<10){
+                    theTime1="0"+theTime1;
+                }
+                result = ""+theTime1+"分钟"+result;
+            }
+            else{
+                theTime1="0"+theTime1;
+                result = ""+theTime1+"分钟"+result;
+            }
+            if(theTime2 > 0) {
+                result = ""+theTime2+"小时"+result;
+            }
+            else{
+                theTime2="00";
+                result = ""+theTime2+"小时"+result;
+            }
+            return result;
+    }
+
+
+
+
+    }]
+});

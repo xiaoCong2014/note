@@ -1,0 +1,98 @@
+
+以后可能不需要适配层了，filter层
+
+
+四舍五入
+
+
+
+接口赶紧
+合并两个
+一个月就一个培训班
+
+西医的代码，前后端都弄下来
+各种东西都来
+
+多状态的话，
+八种判断  最土的是
+状态模式（模板模式：把通用的写到父类里，独有的代码弄成一个，用abstract修饰，子类必须实现自己独有的方法，比如判断。持久化操作）
+	判断这件事情写在：
+	main方法直接判断
+	main方法里的一个单独的判断方法
+	
+	比较好的：但没排序
+	把判断方法提取到父类里，但main似乎不好调用
+	判断方法提取到另一个类，代理类，用来实例化不同的状态
+	接口里，但独有的代码不好抽出来，default
+
+参考西医的创建考纲代码
+
+Java 8 接口 default默认方法 和状态模式的配合
+
+oprjzpxdev.59iedu.com:35720/livereload.js?snipver=1 
+
+
+
+http://fjhb.hxlearning.com:9010
+
+
+fjhb.hxlearning.com:9010
+
+
+
+fjhb.hxlearning.com
+
+fjhb.hxlearning.com
+fjhb.hxlearning.com
+
+
+oprdev.59iedu.com
+
+没有权限
+
+
+com/fjhb/courseSupermarket/service/learningStatistics/support/ExportClassLearningStatisticsServiceImpl.java
+
+
+
+创建完用户后表格没有马上刷新
+
+兼容性先解决一下
+
+
+以后去掉必修课
+
+
+192.168.1.106
+http://192.168.1.106:2034/api/Learning/Initing?callback=jQuery1112041574464…2%2C%22filterList
+%22%3A%5B%5D%2C%22token%22%3A%22%22%7D%7D&_=1495182709060 Failed to load resource: net::ERR_CONNECTION_TIMED_OUT
+
+
+6.0运维 能力服务  看一下
+学习能力 服务
+
+
+
+
+UNIX/linux 操作系统下如何启动和关闭Tomcat？
+yue9121989 | 浏览 13893 次
+推荐于2016-12-06 14:48:01 最佳答案
+方法一:进入tomcat/bin/运行命令 ./shutdown.sh
+方法二:ps aux|grep tomcat找到进程ID,然后kill -9 ID
+
+已经订阅了，但是没有接收到mq信息，是因为有1个以上的消费者，消息被别的消费者消费了
+
+
+[INFO ] http-nio-8080-exec-2 2017-05-19 17:47:07,956 com.fjhb.elearning.gateway.web.admin.CourseResourcesManagerAction     - categoryId: 0
+[INFO ] http-nio-8080-exec-5 2017-05-19 17:47:07,996 com.fjhb.elearning.gateway.web.admin.CourseResourcesManagerAction     - categoryId: 
+
+
+选修课：
+课程分类被删除了，数据库底层 看一下
+创建课程
+安排进 选课中心
+学生选择选修课
+上课程 自动化
+
+
+下一次，课程可以不变，换个人来上课

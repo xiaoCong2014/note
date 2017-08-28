@@ -1,0 +1,61 @@
+2017/6/14 12:54:54
+1497416094000
+
+http://192.168.1.19:9200/fjhb-sqjzry/student-course-learning-statistic/771ba21c1b854dbf9c985c5db97e4838/_update/
+{
+  "doc": {
+    "finishTime": 1497416094000,
+    "createTime": 1497416094000,
+    "year": 2017,
+    "month": 6,
+    "day": 14,
+    "yearMonthDay": "2017-06-14",
+    "yearMonth": "2017-06"
+  }
+}
+
+
+
+
+{
+"took": 1,
+"timed_out": false,
+"_shards": {
+"total": 1,
+"successful": 1,
+"failed": 0
+},
+"hits": {
+"total": 1,
+"max_score": 0,
+"hits": [
+{
+"_index": "fjhb-sqjzry",
+"_type": "student-course-learning-statistic",
+"_id": "771ba21c1b854dbf9c985c5db97e4838",
+"_score": 0,
+"_source": {
+"id": "771ba21c1b854dbf9c985c5db97e4838",
+"platformId": "40289b7e5bf507f8015bf50a77920000",
+"platformVersionId": "40289b7e5bf507f8015bf50a7aaa0001",
+"projectId": "2c9183e55c9f23f6015c9f80cf160024",
+"subProjectId": "2c9183e55c9f23f6015c9f80cf270026",
+"unitId": "2c9183e55c9f23f6015c9f80cfcd002b",
+"organizationId": "-1",
+"studentId": "2c9181e55ca58f39015ca9a8c1ae024d",
+"courseId": "b61d896b773d419f944a787bec95d725",
+"studyTypeKey": 2,
+"studyTypeValue": "10f2e506a3a74413ac0b8ede34a779f0",
+"timeLength": 7928,
+"finishTime": 1497416094000,
+"createTime": 1497416094000,
+"year": 2017,
+"month": 6,
+"day": 14,
+"yearMonthDay": "2017-06-14",
+"yearMonth": "2017-06"
+}
+}
+]
+}
+}

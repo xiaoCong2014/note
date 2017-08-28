@@ -1,0 +1,57 @@
+ind", method = RequestMethod.GET)
+    public Page findStudyAchievementReportUserPage(
+            @ModelAttribute UserPage userPage,//todo 入参需要page吗？如果要返回的数据很多的话，下次获取还是这些人，但分页数据不同
+            @ModelAttribute StudyAchievementReport
+			
+			
+			
+			exportBriefStudyRecordStatisticUserPage
+			
+			
+			
+			
+			
+			ExportBriefStudyRecordStatisticUserPageQueryParam
+			
+			
+			
+			studentIdList[0]=2c9180e55c348c46015c3f0f0bad0a0d&
+			
+			
+			
+			
+			1000000000000&lastDayOfMonthLong=2595876161988
+			
+			
+			6月
+			
+			1496246400
+			1498838399
+			
+			http://xiaocong.hxlearning.com:9010/mfs/resource/file/2c9180e65b7b2254015c1f6dbd6f089f.jpg
+			
+			
+			我自己的接口都可以后，自己调试存颖的接口
+			他用到不是成绩的那个接口
+			
+			账号啊
+			
+			
+			
+			100000001
+			六位  000001
+			
+			
+			@Data
+			通过get方法来的
+			所有没有属性也可以
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			

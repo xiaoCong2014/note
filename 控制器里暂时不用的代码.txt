@@ -1,0 +1,148 @@
+
+//    Page<StudyAchievementReportDto> findStudyAchievementReportPage(
+//            Context context,
+//            Page page,
+//            StudyAchievementReportQueryParam studyAchievementReportQueryParam
+//    );
+
+//    boolean exportBriefStudyRecordStatisticPage(
+//            Context context,
+//            Page page,
+//            CourseStudyStatisticQueryParam courseStudyStatisticQueryParam
+//    );
+
+	
+	
+
+//         lessonStudyStatisticService.exportBriefStudyRecordStatisticPage(
+//                 context,
+//                 page,
+//                 courseStudyStatisticQueryParam
+//         );
+//
+//         Page<BriefStudyRecordStatisticDto2> briefStudyRecordStatisticPage = lessonStudyStatisticService.findBriefStudyRecordStatisticPage(context, page, courseStudyStatisticQueryParam);
+
+
+
+            // 下面的无视
+
+
+//        List<BriefStudyRecordStatisticDto2> currentPageData = (List<BriefStudyRecordStatisticDto2>) briefStudyRecordStatisticPage.getCurrentPageData();
+//
+//        每个学生
+//        for (int i = 0; i < currentPageData.size(); i++) {
+//            //当前数据
+//            List<BriefStudyRecordStatisticDto> briefStudyRecordStatisticDtoList = currentPageData.get(i).getBriefStudyRecordStatisticDtoList();
+//            for (int j = 0; j < briefStudyRecordStatisticDtoList.size(); j++) {
+//                BriefStudyRecordStatisticDto briefStudyRecordStatisticDto = briefStudyRecordStatisticDtoList.get(j);
+//                if (briefStudyRecordStatisticDto.getStudyTypeKey() == StudyType.COLLECTIVE_EDUCATION.getValue()) { // 集中教育
+//
+//                } else if (briefStudyRecordStatisticDto.getStudyTypeKey() == StudyType.INDIVIDUAL_EDUCATION.getValue()) {//个别教育
+//
+//                } else {
+//                    throw new BasicRuntimeException("控制器未知的学习类型");
+//                }
+//            }
+//        }
+//        //把返回的数据转换一下
+//
+//        Page resultPage = modelMapperUtil.map( briefStudyRecordStatisticPage,Page.class );
+//
+//        resultPage.setCurrentPageData(  );
+
+
+//         return false;
+//         return briefStudyRecordStatisticPage;
+
+     }
+
+
+//    /**
+//     * 获取单个用户的某个月份的课程的学习情况统计，不分页。  <br>
+//     * 可能以后需要用
+//     * 数据来源：ElasticSearch
+//     * @return 被包在page里
+//     * @see com.fjhb.elearning.model.StudentCourseStudyStatistic
+//     */
+//    @MethodSecurityObject(value="获取单个用户的某个月份的课程的学习情况统计，不分页",actionType=AuthorizationSouthConstant.ACTION_TYPE_VIEW)
+//    @ResponseBody
+//    @RequestMapping(value = "getLessonStudyStatisticPage", method = RequestMethod.GET)
+//    public Page getLessonStudyStatisticPage(@ModelAttribute Page page ,
+//                                            @ModelAttribute CourseStudyStatisticQueryParam courseStudyStatisticQueryParam ) {
+//        //        log.info("-----获取多个用户的课程的学习情况统计分页: " + JSON.toJSONString(pageCondition));
+//
+//        //page里的对象  加 学习内容
+//
+////        Page courseStudyStatisticPage = courseStudyRepository.getCourseStudyStatisticPage(page, courseStudyStatisticQueryParam);
+//        //StudentCourseStudyStatistic studentCourseStudyStatistic = (StudentCourseStudyStatistic) courseStudyStatisticPage.getCurrentPageData();
+//        //courseStudyStatisticPage.setCurrentPageData();
+//        return courseStudyRepository.getCourseStudyStatisticPage(page, courseStudyStatisticQueryParam);
+//    }
+
+//    @MethodSecurityObject(value="获取多个用户的某个月份的课程的学习情况统计，不分页",actionType=AuthorizationSouthConstant.ACTION_TYPE_VIEW)
+//    @ResponseBody
+//    @RequestMapping(value = "findLessonStudyStatistic", method = RequestMethod.GET)
+//    public Page findLessonUnitStudyStatisticPage2(@ModelAttribute Page page, @ModelAttribute LessonStudyStatisticPageCondition pageCondition) {
+//
+//        log.info("-----获取多个用户的课程的学习情况统计分页: " + JSON.toJSONString(pageCondition));
+//        //return courseStudyRepository.findLessonUnitStudyStatisticPage(this.getContext(), page, pageCondition);
+//        return null;
+//    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/** todo page 是学生的分页
+     * 分页获取多个用户的课程的学习情况统计
+     * @param courseStudyStatisticQueryParam 前端查 id列表 的话，只用到 List<String> ，有用到 unitId 和 date时间段
+     * @return page里面的数据是 BriefStudyRecordStatisticDto2 列表
+     */
+//    @MethodSecurityObject(value="获取多个用户的课程的学习情况统计",actionType=AuthorizationSouthConstant.ACTION_TYPE_VIEW)
+//    @ResponseBody
+//    @RequestMapping(value = "findBriefStudyRecordStatisticPage", method = RequestMethod.GET)
+//    public Page<BriefStudyRecordStatisticDto2> findBriefStudyRecordStatisticPage(
+//            @ModelAttribute Page page,
+//            @ModelAttribute CourseStudyStatisticQueryParam courseStudyStatisticQueryParam ) {
+//        //courseStudyStatisticQueryParam.set
+//        log.info("获取多个用户的课程的学习情况统计 findBriefStudyRecordStatistic ---查询参数: " + JSON.toJSONString( courseStudyStatisticQueryParam ));
+//
+//        Context context = super.getContext();
+////        modelMapperUtil.map(context, courseStudyStatisticQueryParam);
+//
+//        Page<BriefStudyRecordStatisticDto2> briefStudyRecordStatisticPage = lessonStudyStatisticService.findBriefStudyRecordStatisticPage(context, page, courseStudyStatisticQueryParam);
+//
+//
+////        List<BriefStudyRecordStatisticDto2> currentPageData = (List<BriefStudyRecordStatisticDto2>) briefStudyRecordStatisticPage.getCurrentPageData();
+////
+////        每个学生
+////        for (int i = 0; i < currentPageData.size(); i++) {
+////            //当前数据
+////            List<BriefStudyRecordStatisticDto> briefStudyRecordStatisticDtoList = currentPageData.get(i).getBriefStudyRecordStatisticDtoList();
+////            for (int j = 0; j < briefStudyRecordStatisticDtoList.size(); j++) {
+////                BriefStudyRecordStatisticDto briefStudyRecordStatisticDto = briefStudyRecordStatisticDtoList.get(j);
+////                if (briefStudyRecordStatisticDto.getStudyTypeKey() == StudyType.COLLECTIVE_EDUCATION.getValue()) { // 集中教育
+////
+////                } else if (briefStudyRecordStatisticDto.getStudyTypeKey() == StudyType.INDIVIDUAL_EDUCATION.getValue()) {//个别教育
+////
+////                } else {
+////                    throw new BasicRuntimeException("控制器未知的学习类型");
+////                }
+////            }
+////        }
+////        //把返回的数据转换一下
+////
+////        Page resultPage = modelMapperUtil.map( briefStudyRecordStatisticPage,Page.class );
+////
+////        resultPage.setCurrentPageData(  );
+//        return briefStudyRecordStatisticPage;
+//    }

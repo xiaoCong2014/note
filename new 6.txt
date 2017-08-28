@@ -1,0 +1,14 @@
+"courseLearningRepository"
+
+
+这个是什么，安全校验吗
+@MethodSecurityObject(value="获取课程的学习情况统计分页",actionType=AuthorizationSouthConstant.ACTION_TYPE_VIEW)
+
+@Alias("examStatisticRecord")
+public class ExamStatisticRecord
+
+
+log.debug("未注入");
+log.debug("开始消费 课程学时 消息，订阅者接收到来自MQ的消息");
+log.debug("applicaitonContext未注入,请在applicationContext.xml中定义SpringContextHolder。例如在 config/spring/spring-util-beans.xml 中添加 <bean class=\"com.fjhb.elearning.utils.elasticsearch.utils.SpringContextHolder\">" );
+

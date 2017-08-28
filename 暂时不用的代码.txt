@@ -1,0 +1,107 @@
+
+            //考试成绩的最大值，因为已经排序了。不需要手动排序
+//                  下面的是手动排序
+//                    double maximumStudyAchievement2 = currentPageData
+//                            .stream()
+//                            .mapToDouble(
+//                                    ( answerExamPaperDto )-> { return answerExamPaperDto.getScore(); }
+//                            )
+//                            .max()
+//                            .getAsDouble();
+
+            //在for循环的最底层赋值，然后给 studyAchievementReportMonthLatitude 赋值
+
+			
+			
+    public List<CourseChooseStatistic> findAllList(CourseChooseStatisticQuery query){
+        SearchRequestBuilder builder = this.prepareSearch();
+        BoolQueryBuilder boolQueryBuilder = QueryBuilders.boolQuery();
+
+        if(StringUtils.isNotBlank(query.getPlatformId())){
+            boolQueryBuilder.filter(QueryBuilders.matchQuery("platformId", query.getPlatformId()));
+        }
+        if(StringUtils.isNotBlank(query.getPlatformVersionId())){
+            boolQueryBuilder.filter(QueryBuilders.matchQuery("platformVersionId", query.getPlatformVersionId()));
+        }
+        if(StringUtils.isNotBlank(query.getProjectId())){
+            boolQueryBuilder.filter(QueryBuilders.matchQuery("projectId", query.getProjectId()));
+        }
+        if(StringUtils.isNotBlank(query.getSubProjectId())){
+            boolQueryBuilder.filter(QueryBuilders.matchQuery("subProjectId", query.getSubProjectId()));
+        }
+        if (StringUtils.isNotBlank(query.getCourseProvider())) {
+            boolQueryBuilder.filter(QueryBuilders.matchQuery("supplierId", query.getCourseProvider()));
+        }
+        if(query.getCourseIds()!=null){
+            boolQueryBuilder.filter(QueryBuilders.termsQuery("courseId",query.getCourseIds()));
+        }
+        Date before=null,after=null;
+        if(StringUtils.isNotBlank(query.getStartTimeString())&&StringUtils.isNotBlank(query.getEndTimeString())){
+            before = DateUtils.convertFromStringToDate(query.getStartTimeString()+" 00:00:00", CourseSupermarketConstant.DATETIME_FORMAT.getPattern());
+            after = DateUtils.convertFromStringToDate(query.getEndTimeString()+" 23:59:59", CourseSupermarketConstant.DATETIME_FORMAT.getPattern());
+        }else if(StringUtils.isBlank(query.getStartTimeString())&&StringUtils.isBlank(query.getEndTimeString())){
+            Date newestTime = this.getNewestTime();
+            String timeString = DateFormatUtils.format(newestTime, CourseSupermarketConstant.DATETIME_MIN_IS_DAY.getPattern());
+            before = DateUtils.convertFromStringToDate(timeString+" 00:00:00", CourseSupermarketConstant.DATETIME_FORMAT.getPattern());
+            after = DateUtils.convertFromStringToDate(timeString+" 23:59:59", CourseSupermarketConstant.DATETIME_FORMAT.getPattern());
+        }else if(StringUtils.isBlank(query.getStartTimeString())&&StringUtils.isNotBlank(query.getEndTimeString())){
+            before = DateUtils.convertFromStringToDate(query.getEndTimeString()+" 00:00:00", CourseSupermarketConstant.DATETIME_FORMAT.getPattern());
+            after = DateUtils.convertFromStringToDate(query.getEndTimeString()+" 23:59:59", CourseSupermarketConstant.DATETIME_FORMAT.getPattern());
+        }else if(StringUtils.isNotBlank(query.getStartTimeString())&&StringUtils.isBlank(query.getEndTimeString())){
+            Date newestTime = this.getNewestTime();
+            String timeString = DateFormatUtils.format(newestTime, CourseSupermarketConstant.DATETIME_MIN_IS_DAY.getPattern());
+            before = DateUtils.convertFromStringToDate(query.getStartTimeString()+" 00:00:00", CourseSupermarketConstant.DATETIME_FORMAT.getPattern());
+            after = DateUtils.convertFromStringToDate(timeString+" 23:59:59", CourseSupermarketConstant.DATETIME_FORMAT.getPattern());
+        }
+        boolQueryBuilder.filter(QueryBuilders.rangeQuery("executeTime").gt(before.getTime()).lte(after.getTime()));
+        builder.setQuery(boolQueryBuilder);
+        builder.addAggregation(AggregationBuilders.terms("courses").field("courseId")
+                .subAggregation(AggregationBuilders.terms("supplierId").field("supplierId"))
+                .subAggregation(AggregationBuilders.max("max_chooseTimes").field("chooseTimes"))
+                .subAggregation(AggregationBuilders.max("max_choosePeople").field("choosePeople"))
+                .subAggregation(AggregationBuilders.max("max_learned").field("learned"))
+                .subAggregation(AggregationBuilders.min("min_chooseTimes").field("chooseTimes"))
+                .subAggregation(AggregationBuilders.min("min_choosePeople").field("choosePeople"))
+                .subAggregation(AggregationBuilders.min("min_learned").field("learned"))
+                .size(10000)
+        ).setSize(1);
+        SearchResponse response = builder.execute().actionGet();
+        Aggregations aggs = response.getAggregations();
+        Terms courseGroup = aggs.get("courses");
+        if(courseGroup!=null){
+            List<Terms.Bucket> buckets = courseGroup.getBuckets();
+            List<CourseChooseStatistic> statistics = new ArrayList<>();
+            for(Terms.Bucket bucket:buckets){
+                CourseChooseStatistic statistic = new CourseChooseStatistic();
+                statistic.setCourseId(bucket.getKeyAsString());
+                Terms supplierGroup = bucket.getAggregations().get("supplierId");
+                if(supplierGroup!=null){
+                    List<Terms.Bucket> supplierId = supplierGroup.getBuckets();
+                    if(supplierId.size()>0){
+                        statistic.setSupplierId(supplierId.get(0).getKeyAsString());
+                    }
+                }
+                if(bucket.getDocCount()==1){
+                    Max maxChooseTimes = bucket.getAggregations().get("max_chooseTimes");
+                    Max maxChoosePeople = bucket.getAggregations().get("max_choosePeople");
+                    Max maxLearned = bucket.getAggregations().get("max_learned");
+                    statistic.setChooseTimes((int)maxChooseTimes.getValue());
+                    statistic.setChoosePeople((int)maxChoosePeople.getValue());
+                    statistic.setLearned((int)maxLearned.getValue());
+                }else{
+                    Max maxChooseTimes = bucket.getAggregations().get("max_chooseTimes");
+                    Max maxChoosePeople = bucket.getAggregations().get("max_choosePeople");
+                    Max maxLearned = bucket.getAggregations().get("max_learned");
+                    Min minChooseTimes = bucket.getAggregations().get("min_chooseTimes");
+                    Min minChoosePeople = bucket.getAggregations().get("min_choosePeople");
+                    Min minLearned = bucket.getAggregations().get("min_learned");
+                    statistic.setChooseTimes((int)(maxChooseTimes.getValue()-minChooseTimes.getValue()));
+                    statistic.setChoosePeople((int)(maxChoosePeople.getValue()-minChoosePeople.getValue()));
+                    statistic.setLearned((int)(maxLearned.getValue()-minLearned.getValue()));
+                }
+                statistics.add(statistic);
+            }
+            return statistics.stream().sorted(Comparator.comparing(CourseChooseStatistic::getChooseTimes).reversed()).collect(Collectors.toList());
+        }
+        return null;
+    }

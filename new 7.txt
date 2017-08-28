@@ -1,0 +1,52 @@
+
+
+
+学员4
+18149547804
+2c9180e55bf1d81f015c1f8a225c1937
+
+课程6
+6f9ac04b6a7541a1a2398f1c95109a36
+
+
+
+CourseAssessContent(context:RequestContext(organizationId:-1, platformId:40289b7e5bf507f8015bf50a77920000, 
+platformVersionId:40289b7e5bf507f8015bf50a7aaa0001, projectId:2c9180e55bf1d81f015c1f6ed88b1761, subProjectId:2c9180e55bf1d81f015c1f6ed8931763, unitId:-1), objectId:-1, objectType:0, courseId:6f9ac04b6a7541a1a2398f1c95109a36, 
+userId:2c9180e55bf1d81f015c1f8a225c1937, schedule:100.0)
+
+
+StudentCourseStudyStatistic(id=12eb0281e54e41679afa8fb93680339f, platformId=40289b7e5bf507f8015bf50a77920000, platformVersionId=40289b7e5bf507f8015bf50a7aaa0001, projectId=2c9180e55bf1d81f015c1f6ed88b1761, subProjectId=2c9180e55bf1d81f015c1f6ed8931763, unitId=-1, organizationId=-1, studentId=2c9180e55bf1d81f015c1f8a225c1937, courseId=6f9ac04b6a7541a1a2398f1c95109a36, 
+courseName=课程6, 
+
+studyTypeKey=1, 
+studyTypeValue=-1,
+
+timeLength=3,  //todo  时长怪怪的  说3秒
+finishTime=1495522821920, createTime=1495522821920)
+
+
+
+courseName": "课程6
+
+
+
+learning
+
+
+
+课程下的所有课件，不需要判断是否是视频课件，直接累加
+因为文档课件也有课程时长，因为看文档也算时间
+
+课程6的学分是否是3
+
+查找文档
+
+
+
+
+
+/**
+* 权重,表示学时（不是课程下的视频型课件的时长）,学分等
+*/
+private int period; // required
+

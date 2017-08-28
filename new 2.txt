@@ -1,0 +1,62 @@
+
+考试成绩
+
+不再分组了
+
+最后得到的是一个嵌套好的对象吗
+
+{
+  "query":{
+    "bool" : {
+    "filter" : [
+     
+      {
+        "range" : {
+          "executeTime" : {
+            "to" : 2550937599000,
+            "include_lower" : false,
+            "include_upper" : true,
+            "boost" : 1.0
+          }
+        }
+      }
+    ],
+    "disable_coord" : false,
+    "adjust_pure_negative" : true,
+    "boost" : 1.0
+  }
+  },
+  "aggs":{  //第一层分组
+    "courses":{
+      "terms" : {
+        "field" : "courseId"
+      },
+      "aggs":{//第一层分组
+        "supplierId":{
+            "terms" : {
+              "field" : "supplierId"
+            }
+        },
+        "max_choosePeople":{//第2层的统计
+          "max":{"field":"choosePeople"}
+        },
+        "min_choosePeople":{
+          "min":{"field":"choosePeople"}
+        },
+        "max_chooseTimes":{
+          "max":{"field":"chooseTimes"}
+        },
+        "min_chooseTimes":{
+          "min":{"field":"chooseTimes"}
+        },
+        "max_learned":{
+          "max":{"field":"learned"}
+        },
+        "min_learned":{
+          "min":{"field":"learned"}
+        }
+      }
+      
+    }
+  }
+}

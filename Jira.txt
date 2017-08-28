@@ -1,0 +1,14 @@
+Jira任务平台：
+http://192.168.1.208:18080/secure/Dashboard.jspa
+zhangqiang     /     1
+
+
+SVN:
+http://192.168.1.81/svn/dztypt/开发库/04集成与测试/Branch/Branch_Study
+zhangq / zhangq
+
+
+
+
+
+

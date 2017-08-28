@@ -1,0 +1,7 @@
+单点登录服务已去除 启动时刷新安全对象授权缓存的操作，如果使用sql 进行安全对象及授权初始化后 需要以从http口触发缓存更新, 请求格式: cas域名/refreshCache?token=xxx.yyy.zzz
+如：
+刷新开发环境 :dev.cas.com/refreshCache?token=eyJ0eXAiOiJqd3QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJmamhiLWJhc2ljZGF0YS1jYXV0aCIsImlhdCI6MTQ5NzgwMDE1MSwibmJmIjoxNDk3ODAwMTUxLCJleHAiOjE0OTc4Mjg5NTF9.e6HN1d3OXO-0JVcYK9Mueoe3QE4QxFZkODLJCtDNDhQ
+
+token 目前需要从我这里拿，这周会改到TC或运维平台V2 ，有效期4小时.
+
+@所有人 
